@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_024735) do
+ActiveRecord::Schema.define(version: 2019_10_12_190131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,35 @@ ActiveRecord::Schema.define(version: 2019_10_02_024735) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
     t.index ["user_id"], name: "index_courses_on_user_id"
+  end
+
+  create_table "enrollments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_enrollments_on_course_id"
+    t.index ["user_id", "course_id"], name: "index_enrollments_on_user_id_and_course_id"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.string "title"
+    t.string "subtitle"
+    t.integer "section_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "video"
+    t.index ["section_id"], name: "index_lessons_on_section_id"
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.text "message"
+    t.integer "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_photos_on_place_id"
   end
 
   create_table "sections", force: :cascade do |t|
